@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMAN LOCKER</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#06120b;
+    color:white;
+    overflow:hidden;
+}
+
+/* BACKGROUND */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
+
+    background:
+        radial-gradient(circle at 20% 20%,#1d5c39,transparent 35%),
+        radial-gradient(circle at 80% 70%,#164d31,transparent 35%),
+        linear-gradient(135deg,#06120b,#0a1d12);
+}
+
+.glow{
+    position:absolute;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.25;
+    background:#55ff99;
+    animation:move 12s infinite alternate;
+}
+
+.glow.one{
+    left:-150px;
+    top:-150px;
+}
+
+.glow.two{
+    right:-150px;
+    bottom:-150px;
+    animation-delay:4s;
+}
+
+@keyframes move{
+    to{
+        transform:translate(180px,120px) scale(1.2);
+    }
+}
+
+/* FLYING SYMBOLS */
+
+.symbol{
+    position:absolute;
+    color:#8affb5;
+    opacity:.16;
+    font-weight:bold;
+    text-shadow:0 0 20px #55ff99;
+    animation:fly 12s infinite ease-in-out;
+}
+
+.s1{left:7%;top:15%;font-size:60px;}
+.s2{left:22%;top:70%;font-size:35px;animation-delay:2s;}
+.s3{left:40%;top:20%;font-size:50px;animation-delay:4s;}
+.s4{left:60%;top:75%;font-size:65px;animation-delay:1s;}
+.s5{left:75%;top:18%;font-size:40px;animation-delay:5s;}
+.s6{left:90%;top:55%;font-size:55px;animation-delay:3s;}
+
+@keyframes fly{
+    0%,100%{
+        transform:translate(0,0) rotate(0deg);
+    }
+    50%{
+        transform:translate(80px,-70px) rotate(180deg);
+    }
+}
+
+/* TOP BAR */
+
+.topbar{
+    height:75px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 45px;
+
+    background:rgba(3,15,8,.8);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(130,255,170,.2);
+}
+
+.logo{
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:5px;
+    color:#9affbd;
+    text-shadow:0 0 20px #55ff99;
+}
+
+.status{
+    color:#75ff9e;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* SCREEN */
+
+.screen{
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:90px 50px 30px;
+}
+
+.panel{
+    width:min(1100px,92vw);
+    min-height:600px;
+
+    display:grid;
+    grid-template-columns:40% 60%;
+
+    background:rgba(7,25,15,.82);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(120,255,165,.25);
+    border-radius:25px;
+
+    box-shadow:0 0 80px rgba(70,255,130,.08);
+}
+
+/* LEFT */
+
+.left{
+    padding:55px;
+    border-right:1px solid rgba(120,255,165,.12);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.level{
+    color:#73ff9d;
+    font-size:13px;
+    letter-spacing:4px;
+    font-weight:bold;
+}
+
+h1{
+    margin-top:15px;
+    font-size:60px;
+    line-height:.95;
+}
+
+.description{
+    margin-top:25px;
+    color:#9bb5a4;
+    line-height:1.7;
+}
+
+.lock{
+    width:160px;
+    height:160px;
+
+    margin-top:35px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:75px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(120,255,165,.3);
+
+    background:rgba(90,255,140,.05);
+
+    box-shadow:0 0 40px rgba(80,255,140,.08);
+
+    animation:pulse 3s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:translateY(-8px);
+        box-shadow:0 0 60px rgba(80,255,140,.16);
+    }
+}
+
+/* RIGHT */
+
+.right{
+    padding:55px 65px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.clue-title{
+    color:#73ff9d;
+    letter-spacing:4px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.clue{
+    margin-top:15px;
+
+    padding:28px;
+
+    border-radius:18px;
+
+    background:rgba(100,255,150,.04);
+
+    border:1px solid rgba(120,255,165,.13);
+
+    color:#d4e5da;
+
+    line-height:1.8;
+}
+
+.highlight{
+    color:#8affb2;
+    font-weight:bold;
+}
+
+.input-label{
+    margin-top:28px;
+
+    color:#8fa99a;
+
+    font-size:12px;
+    letter-spacing:3px;
+}
+
+input{
+    width:100%;
+    height:65px;
+
+    margin-top:10px;
+
+    background:#06130b;
+
+    border:1px solid #4b9d68;
+    border-radius:13px;
+
+    color:white;
+
+    text-align:center;
+
+    font-size:24px;
+    letter-spacing:4px;
+
+    outline:none;
+}
+
+input:focus{
+    border-color:#75ff9f;
+
+    box-shadow:
+        0 0 0 3px rgba(117,255,159,.08),
+        0 0 30px rgba(117,255,159,.12);
+}
+
+input::placeholder{
+    color:#3f5a48;
+    font-size:13px;
+}
+
+button{
+    width:100%;
+    height:62px;
+
+    margin-top:15px;
+
+    border:0;
+    border-radius:13px;
+
+    background:#82ffad;
+    color:#06120b;
+
+    font-weight:900;
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+button:hover{
+    background:#b1ffca;
+    transform:translateY(-2px);
+    box-shadow:0 0 30px rgba(100,255,150,.2);
+}
+
+.message{
+    height:25px;
+    margin-top:12px;
+
+    text-align:center;
+    font-weight:bold;
+}
+
+.good{
+    color:#73ff9d;
+}
+
+.bad{
+    color:#ff7070;
+}
+
+/* LEVEL 2 */
+
+#level2{
+    display:none;
+}
+
+.numbers{
+    margin:20px 0;
+
+    text-align:center;
+
+    font-size:38px;
+    letter-spacing:8px;
+
+    color:#9affbd;
+
+    text-shadow:0 0 20px rgba(100,255,150,.25);
+}
+
+/* COMPLETE */
+
+#complete{
+    display:none;
+}
+
+.complete{
+    width:min(800px,90vw);
+
+    text-align:center;
+
+    padding:80px;
+
+    background:rgba(7,25,15,.85);
+
+    border:1px solid rgba(120,255,165,.3);
+
+    border-radius:25px;
+}
+
+.trophy{
+    font-size:80px;
+}
+
+.complete h2{
+    margin-top:20px;
+
+    font-size:60px;
+
+    color:#8affb2;
+}
+
+.complete p{
+    margin-top:15px;
+    color:#8fa99a;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .panel{
+        grid-template-columns:1fr;
+        overflow:auto;
+        max-height:85vh;
+    }
+
+    .left{
+        border-right:0;
+        border-bottom:1px solid rgba(120,255,165,.12);
+    }
+
+    h1{
+        font-size:45px;
+    }
+
+    .right{
+        padding:35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="background">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="symbol s1">+</div>
+    <div class="symbol s2">×</div>
+    <div class="symbol s3">−</div>
+    <div class="symbol s4">*</div>
+    <div class="symbol s5">+</div>
+    <div class="symbol s6">×</div>
+
+</div>
+
+
+<!-- TOP -->
+
+<div class="topbar">
+
+    <div class="logo">
+        AMAN LOCKER
+    </div>
+
+    <div class="status">
+        ● SYSTEM ONLINE
+    </div>
+
+</div>
+
+
+<!-- LEVEL 1 -->
+
+<section class="screen" id="level1">
+
+<div class="panel">
+
+    <div class="left">
+
+        <div class="level">
+            LEVEL 01 / 02
+        </div>
+
+        <h1>
+            DIGITAL<br>LOCK
+        </h1>
+
+        <p class="description">
+            A word is hiding a four-digit
+            security code.
+            Find the pattern and unlock it.
+        </p>
+
+        <div class="lock" id="lock1">
+            🔐
+        </div>
+
+    </div>
+
+
+    <div class="right">
+
+        <div class="clue-title">
+            CLUES
+        </div>
+
+        <div class="clue">
+
+            The secret word is
+            <span class="highlight">CODE</span>.
+
+            <br><br>
+
+            Convert each letter into its
+            <span class="highlight">
+                alphabet position
+            </span>.
+
+            <br><br>
+
+            If a number has two digits,
+            use its
+            <span class="highlight">
+                digital root
+            </span>.
+
+            <br><br>
+
+            Keep the four results
+            in the same order.
+
+            <br><br>
+
+            🔎 Find the four-digit code.
+
+        </div>
+
+
+        <div class="input-label">
+            ENTER SECURITY CODE
+        </div>
+
+        <input
+            id="answer1"
+            type="text"
+            maxlength="4"
+            inputmode="numeric"
+            placeholder="YOUR ANSWER"
+        >
+
+        <button onclick="openLevel1()">
+            🔓 OPEN LOCK
+        </button>
+
+        <div
+            id="message1"
+            class="message">
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- LEVEL 2 -->
+
+<section class="screen" id="level2">
+
+<div class="panel">
+
+    <div class="left">
+
+        <div class="level">
+            LEVEL 02 / 02
+        </div>
+
+        <h1>
+            ELEMENT<br>LOCK
+        </h1>
+
+        <p class="description">
+            Numbers are hiding a word.
+            The Periodic Table is your key.
+        </p>
+
+        <div class="lock">
+            🧪
+        </div>
+
+    </div>
+
+
+    <div class="right">
+
+        <div class="clue-title">
+            CLUES
+        </div>
+
+        <div class="clue">
+
+            Start with these numbers:
+
+            <div class="numbers">
+                56 · 11 · 11
+            </div>
+
+            They are
+            <span class="highlight">
+                atomic numbers
+            </span>.
+
+            <br><br>
+
+            Look them up in the
+            <span class="highlight">
+                Periodic Table
+            </span>.
+
+            <br><br>
+
+            Take the
+            <span class="highlight">
+                element symbols
+            </span>
+            you find.
+
+            <br><br>
+
+            Put the symbols together.
+
+            <br><br>
+
+             The final word is a
+            <span class="highlight">
+                fruit
+            </span>.
+
+        </div>
+
+
+        <div class="input-label">
+            ENTER THE FRUIT
+        </div>
+
+        <input
+            id="answer2"
+            type="text"
+            placeholder="YOUR ANSWER"
+        >
+
+        <button onclick="openLevel2()">
+            ⚡ UNLOCK
+        </button>
+
+        <div
+            id="message2"
+            class="message">
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- COMPLETE -->
+
+<section class="screen" id="complete">
+
+    <div class="complete">
+
+        <div class="trophy">
+            🏆
+        </div>
+
+        <h2>
+            PART 1 COMPLETE
+        </h2>
+
+        <p>
+            Both locks have been opened.
+        </p>
+
+        <p>
+            LEVEL 01 ✓ &nbsp;&nbsp;
+            LEVEL 02 ✓
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* LEVEL 1 */
+
+function openLevel1(){
+
+    const answer =
+        document.getElementById("answer1").value.trim();
+
+    const message =
+        document.getElementById("message1");
+
+    const lock =
+        document.getElementById("lock1");
+
+    if(answer === "3645"){
+
+        message.textContent =
+            "✓ ACCESS GRANTED";
+
+        message.className =
+            "message good";
+
+        lock.textContent = "🔓";
+
+        setTimeout(function(){
+
+            document.getElementById("level1").style.display="none";
+
+            document.getElementById("level2").style.display="flex";
+
+        },900);
+
+    }else{
+
+        message.textContent =
+            "✕ WRONG CODE — TRY AGAIN";
+
+        message.className =
+            "message bad";
+    }
+}
+
+
+/* LEVEL 2 */
+
+function openLevel2(){
+
+    const answer =
+        document.getElementById("answer2").value.trim().toLowerCase();
+
+    const message =
+        document.getElementById("message2");
+
+    if(answer === "banana"){
+
+        message.textContent =
+            "✓ ACCESS GRANTED";
+
+        message.className =
+            "message good";
+
+        setTimeout(function(){
+
+            document.getElementById("level2").style.display="none";
+
+            document.getElementById("complete").style.display="flex";
+
+        },900);
+
+    }else{
+
+        message.textContent =
+            "✕ WRONG — USE THE CLUES";
+
+        message.className =
+            "message bad";
+    }
+}
+
+
+/* ENTER KEY */
+
+document.getElementById("answer1")
+.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+        openLevel1();
+    }
+
+});
+
+document.getElementById("answer2")
+.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+        openLevel2();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
